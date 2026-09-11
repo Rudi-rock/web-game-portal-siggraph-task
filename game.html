@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Neon Dodge — Play</title>
+  <meta name="description" content="Survive the neon obstacle storm in Neon Dodge. Move fast, react faster.">
+  <meta name="theme-color" content="#05070d">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body class="game-page-body">
+
+  <!-- Header -->
+  <header class="game-header">
+    <div class="header-container">
+      <a href="index.html" class="header-back-btn" id="exit-hub-top" aria-label="Return to Game Hub">
+        <span aria-hidden="true">←</span>
+        <span>HUB</span>
+      </a>
+
+      <div class="brand-logo" style="font-size: 1rem;">
+        <span>NEON <span class="brand-accent">DODGE</span></span>
+      </div>
+
+      <div class="header-controls">
+        <button id="mute-toggle-btn" class="control-btn" aria-label="Toggle Audio" title="Mute/Unmute Audio (M)">
+          <!-- Sound icon (active by default) -->
+          <svg id="icon-sound-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <!-- Muted icon (hidden by default) -->
+          <svg id="icon-sound-off" style="display: none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <button id="pause-toggle-btn" class="control-btn" aria-label="Pause Game" title="Pause Game (P or Space)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+            <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Game Viewport Area -->
+  <main class="game-viewport">
+    <div class="canvas-wrapper" id="canvas-container">
+      <!-- Game Canvas -->
+      <canvas id="gameCanvas" width="600" height="800" aria-label="Neon Dodge game canvas"></canvas>
+
+      <!-- Heads Up Display (HUD) -->
+      <div class="game-hud" aria-live="polite">
+        <div class="hud-group hud-score">
+          <span class="hud-label">Score</span>
+          <span class="hud-value" id="hud-score-val">0</span>
+        </div>
+
+        <div class="hud-group hud-level">
+          <span class="hud-label">Level</span>
+          <span class="hud-value" id="hud-level-val">01</span>
+        </div>
+
+        <div class="hud-group hud-best">
+          <span class="hud-label">Best</span>
+          <span class="hud-value" id="hud-best-val">0</span>
+        </div>
+      </div>
+
+      <!-- Start Overlay Modal -->
+      <div class="game-overlay active" id="start-overlay" role="dialog" aria-modal="true" aria-labelledby="start-title">
+        <div class="modal-content">
+          <span class="badge badge-cyan">Tactical Reaction Arena</span>
+          <h1 class="modal-title" id="start-title">Neon Dodge</h1>
+          <p class="modal-subtitle">Survive The Storm</p>
+
+          <div class="modal-scores">
+            <div class="modal-score-item">
+              <span class="modal-score-label">All-Time Best</span>
+              <span class="modal-score-val" id="start-best-score">0</span>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn btn-primary" id="btn-start-game">
+              <span>START MISSION</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <p class="controls-hint">
+            Desktop: <kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd> to move • <kbd>P</kbd> to pause<br>
+            Mobile: On-screen buttons or drag finger on screen
+          </p>
+        </div>
+      </div>
+
+      <!-- Pause Overlay Modal -->
+      <div class="game-overlay" id="pause-overlay" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <div class="modal-content">
+          <h2 class="modal-title" id="pause-title">PAUSED</h2>
+          <p class="modal-subtitle">Simulation Suspended</p>
+
+          <div class="modal-actions">
+            <button class="btn btn-primary" id="btn-resume-game">
+              <span>RESUME</span>
+            </button>
+            <button class="btn btn-secondary" id="btn-restart-from-pause">
+              <span>RESTART</span>
+            </button>
+            <a href="index.html" class="btn btn-ghost" id="btn-exit-from-pause">
+              <span>EXIT TO HUB</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Over Overlay Modal -->
+      <div class="game-overlay" id="gameover-overlay" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
+        <div class="modal-content">
+          <h2 class="modal-title" id="gameover-title" style="color: var(--color-danger);">GAME OVER</h2>
+          <span class="new-record-banner" id="new-record-banner">★ NEW HIGH SCORE ★</span>
+
+          <div class="modal-scores">
+            <div class="modal-score-item">
+              <span class="modal-score-label">FINAL SCORE</span>
+              <span class="modal-score-val" id="gameover-final-score">0</span>
+            </div>
+            <div class="modal-score-item">
+              <span class="modal-score-label">BEST RECORD</span>
+              <span class="modal-score-val" id="gameover-best-score" style="color: #ffffff;">0</span>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn btn-accent" id="btn-play-again">
+              <span>PLAY AGAIN</span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <a href="index.html" class="btn btn-secondary" id="btn-exit-from-gameover">
+              <span>RETURN TO HUB</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dedicated Mobile On-Screen Virtual Buttons -->
+    <div class="mobile-controls-bar" aria-label="Mobile Game Controls">
+      <button class="touch-btn" id="btn-touch-left" aria-label="Move Left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="touch-btn" id="btn-touch-right" aria-label="Move Right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </main>
+
+  <!-- Game Logic Module -->
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>

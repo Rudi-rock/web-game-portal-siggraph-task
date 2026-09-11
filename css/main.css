@@ -1,0 +1,459 @@
+/* ==========================================================================
+   NEON DODGE — Main Design System & Global Styles
+   Futuristic Cyberpunk / Sci-Fi Arcade Aesthetic
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Color Palette */
+  --bg-primary: #05070d;
+  --bg-surface: #0c111c;
+  --bg-surface-glass: rgba(12, 17, 28, 0.8);
+  --bg-surface-elevated: #131b2e;
+  --bg-surface-card: rgba(16, 23, 38, 0.7);
+
+  /* Neon Accents */
+  --color-primary: #00f0ff;       /* Electric Cyan */
+  --color-primary-dim: rgba(0, 240, 255, 0.15);
+  --color-primary-glow: rgba(0, 240, 255, 0.4);
+  --color-accent: #ff7700;        /* Neon Orange */
+  --color-accent-dim: rgba(255, 119, 0, 0.15);
+  --color-accent-glow: rgba(255, 119, 0, 0.4);
+  --color-danger: #ff2a5f;        /* Alert Red */
+  --color-danger-glow: rgba(255, 42, 95, 0.4);
+  --color-success: #00ff88;       /* System Green */
+  --color-success-glow: rgba(0, 255, 136, 0.4);
+
+  /* Typography */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Borders & Shadows */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(0, 240, 255, 0.2);
+  --border-accent: rgba(255, 119, 0, 0.3);
+  --glow-primary: 0 0 25px rgba(0, 240, 255, 0.35);
+  --glow-accent: 0 0 25px rgba(255, 119, 0, 0.35);
+  --glow-subtle: 0 4px 20px rgba(0, 0, 0, 0.6);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Dimensions */
+  --header-height: 72px;
+  --max-width: 1200px;
+}
+
+/* ==========================================================================
+   Typography & Base Styles
+   ========================================================================== */
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Focus Visibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 10px var(--color-primary-glow);
+}
+
+/* Skip link for keyboard accessibility */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--color-primary);
+  color: #000;
+  padding: 10px 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  z-index: 9999;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ==========================================================================
+   Interactive Header & Navigation
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background: rgba(5, 7, 13, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  transition: border-color var(--transition-base), background var(--transition-base);
+}
+
+.header-container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  transition: opacity var(--transition-fast);
+}
+
+.brand-logo:hover {
+  opacity: 0.9;
+}
+
+.brand-icon {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 0 8px var(--color-primary-glow));
+}
+
+.brand-accent {
+  color: var(--color-primary);
+  text-shadow: 0 0 12px var(--color-primary-glow);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  position: relative;
+  padding: 6px 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--color-primary);
+  box-shadow: 0 0 8px var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--color-primary);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* System Status Indicator */
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(0, 255, 136, 0.06);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-success);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+  animation: pulse-status 2s infinite ease-in-out;
+}
+
+@keyframes pulse-status {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* ==========================================================================
+   Button System
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 14px 28px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00f0ff 0%, #00a8ff 100%);
+  color: #05070d;
+  font-weight: 700;
+  box-shadow: 0 0 20px var(--color-primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  color: #000;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, #ff7700 0%, #ff4500 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 20px var(--color-accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 119, 0, 0.65);
+}
+
+.btn-secondary {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 15px var(--color-primary-dim);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 10px 18px;
+  font-size: 0.85rem;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.btn-icon {
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.btn-icon:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 12px var(--color-primary-dim);
+}
+
+/* ==========================================================================
+   Badges & Pills
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.badge-cyan {
+  background: var(--color-primary-dim);
+  color: var(--color-primary);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.badge-orange {
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
+  border: 1px solid rgba(255, 119, 0, 0.3);
+}
+
+.badge-subtle {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(5, 7, 13, 0.95);
+  padding: 40px 24px;
+}
+
+.footer-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-brand-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.footer-tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-tech {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.tech-sep {
+  color: var(--color-accent);
+}
+
+.footer-bottom {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-credits a {
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+}
+
+.footer-credits a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Responsive Navigation Utilities
+   ========================================================================== */
+
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 8px;
+}
+
+@media (max-width: 768px) {
+  .header-nav {
+    display: none;
+  }
+  .system-status span {
+    display: none;
+  }
+  .footer-top, .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

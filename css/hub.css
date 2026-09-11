@@ -1,0 +1,356 @@
+/* ==========================================================================
+   NEON DODGE — Game Hub Stylesheet
+   Futuristic, minimal, cinematic arcade portal styling
+   ========================================================================== */
+
+/* Main canvas background behind hero */
+#hub-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+.hub-main {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.hub-container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
+.hero-section {
+  min-height: calc(85vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 0 80px;
+  position: relative;
+}
+
+.hero-glow-blob {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(650px, 90vw);
+  height: min(400px, 60vw);
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(255, 119, 0, 0.05) 50%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero-badge-container {
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  line-height: 1.05;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff 30%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-title .title-accent {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #00a8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 36px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero-cta {
+  font-size: 1.1rem;
+  padding: 18px 40px;
+  border-radius: 12px;
+  transition: all var(--transition-base);
+}
+
+.hero-cta .cta-arrow {
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+.hero-cta:hover .cta-arrow {
+  transform: translateX(6px);
+}
+
+.hero-subtext {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Game Library Section
+   ========================================================================== */
+
+.library-section {
+  width: 100%;
+  padding: 80px 0;
+  border-top: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, rgba(5, 7, 13, 0) 0%, rgba(12, 17, 28, 0.4) 100%);
+}
+
+.section-header {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.section-tag {
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-heading {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  color: var(--text-primary);
+}
+
+/* Featured Game Card */
+.game-card-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.game-card {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* Desktop Mouse-Tracking Hover & Tilt (Only on hover devices) */
+@media (hover: hover) and (pointer: fine) {
+  .game-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 15px 50px rgba(0, 240, 255, 0.2), 0 0 20px rgba(0, 240, 255, 0.1);
+  }
+}
+
+.game-card-thumb-area {
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  background: #090e1a;
+}
+
+.game-card-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-smooth);
+}
+
+.game-card:hover .game-card-thumb-img {
+  transform: scale(1.04);
+}
+
+.card-badges {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.game-card-content {
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-status-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-success);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-high-score {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+.card-title {
+  font-size: 1.85rem;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.card-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.card-tag {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  font-weight: 600;
+}
+
+.card-action .btn {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Specs & Feature Grid
+   ========================================================================== */
+
+.features-section {
+  width: 100%;
+  padding: 60px 0 100px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 28px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.feature-box:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 1.75rem;
+  margin-bottom: 16px;
+  color: var(--color-primary);
+}
+
+.feature-title {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.feature-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Mobile & Tablet Responsiveness
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .game-card {
+    grid-template-columns: 1fr;
+  }
+  .game-card-thumb-area {
+    min-height: 220px;
+  }
+  .game-card-content {
+    padding: 28px 24px;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 40px 0 60px;
+    min-height: auto;
+  }
+  .hero-cta {
+    width: 100%;
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+  .game-card-thumb-area {
+    min-height: 180px;
+  }
+}
