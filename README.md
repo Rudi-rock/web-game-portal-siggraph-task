@@ -153,16 +153,19 @@ vercel
 
 ---
 
-## 👨‍💻 Author Details
+## 👨‍💻 Project & Author Details
 
-- **Name**: Rudra Pratap Singh
+- **Project**: NEON DODGE
+- **Developer**: Rudra Pratap Singh
 - **Registration Number**: RA2511003011539
 - **Organization**: ACM SIGGRAPH SRMIST Student Chapter
 - **Induction Task**: Web Development 2026–27
+- **GitHub Repository**: [web-game-portal-siggraph-task](https://github.com/Rudi-rock/web-game-portal-siggraph-task)
+- **Vercel Project**: `neon-dodge-arcade`
 
 ---
 
 ## 🔗 Project Links
 
-- **Live Demo**: `[ADD DEPLOYED URL]`
+- **Live Demo (Vercel)**: [https://neon-dodge-arcade-seven.vercel.app](https://neon-dodge-arcade-seven.vercel.app)
 - **Source Repository**: [https://github.com/Rudi-rock/web-game-portal-siggraph-task](https://github.com/Rudi-rock/web-game-portal-siggraph-task)
